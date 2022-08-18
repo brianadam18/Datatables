@@ -21,7 +21,7 @@
     <link rel="stylesheet" href={% static "css/style.css" %}>
     <!-- Data Tables CSS -->
     <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/v/bs5/dt-1.12.1/af-2.4.0/datatables.min.css" />
+        href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/datatables.min.css" />
 
     <title>Management Inventory</title>
 </head>
@@ -67,7 +67,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Data Tables JS -->
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/af-2.4.0/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/datatables.min.js"></script>
 
     <!-- Data Script -->
     <script>
@@ -81,10 +84,67 @@
             searching: true, // input search
             bInfo: true, // Info on footer
             bSort: true,// Filter A to Z and Z to A (and numbers)
-        })
+
+            //BUTTONS
+            dom: 'lBfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    text: '<i class="fas fa-clone"></i>',
+                    className: 'btn btn-secondary',
+                    titleAttr: 'Copy',
+                    //Choose the coloums you  with to export
+                    // exportOptions: {
+                    //     coloumns: [0, 1, 2, 3, 4, 5]
+                    // },
+                },
+
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i>',
+                    className: 'btn btn-secondary',
+                    titleAttr: 'Excel',
+                },
+
+                {
+                    extend: 'pdf',
+                    text: '<i class="fas fa-file-pdf"></i>',
+                    className: 'btn btn-secondary',
+                    titleAttr: 'PDF',
+                    //Center the table
+                    tableHeader: {
+                        aligment: 'center'
+                    },
+                    //Font Size and Optimization
+                    customize: function(doc){
+                        doc.styles.tableHeader.alignment = 'center';
+                        doc.styles.tableBodyEven.alignment = 'center';
+                        doc.styles.tableBodyOdd.alignment = 'center';
+                        doc.styles.tableHeader.fontSize = 7; 
+                        doc.defaultStyle.fontSize = 6;
+                        // 100% width of the table
+                        doc.content[1].table.widths = 
+                            Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                    },
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i>',
+                    className: 'btn btn-secondary',
+                    titleAttr: 'Print',
+                    //Font size
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    },
+                }]
+        });
         //Enable search box Outside
         var newSearch = $('#example').DataTable();
-        $('#search').keyup(function() {
+        $('#search').keyup(function () {
             newSearch.search($(this).val()).draw();
         });
     </script>
