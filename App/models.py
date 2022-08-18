@@ -40,3 +40,15 @@ class Inventory(models.Model) :
     
     def __str__(self) -> str:
         return self.nama_barang
+    
+
+    #JSON
+    def get_data(self):
+        return{
+            'no_barang': self.no_barang,
+            'nama_barang': self.nama_barang,
+            'no_sku': self.no_sku,
+            'ukuran': self.ukuran,
+            'jumlah_barang': self.jumlah_barang,
+            'Jenis_barang': self.Jenis_barang,
+        }

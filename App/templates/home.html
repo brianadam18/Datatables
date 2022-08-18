@@ -13,29 +13,19 @@
     <table class="table table-bordered" id="example" style="text-align: center;">
         <thead class="table-success">
             <tr>
-                <th>No</th>
-                <th>Nama Barang</th>
-                <th>SKU</th>
-                <th>Ukuran</th>
-                <th>Jumlah</th>
-                <th>Jenis Barang</th>
+                <th style="width: 5%;">No</th>
+                <th style="width: 25%;"> Nama Barang</th>
+                <th style="width: 10%;"> SKU</th>
+                <th style="width: 5%;"> Ukuran</th>
+                <th style="width: 5%;"> Jumlah</th>
+                <th style="width: 10%;"> Jenis Barang</th>
             </tr>
         </thead>
-        <!-- Data from backend -->
-        {% for inventory in inventorys %}
-        <tr>
-            <td>{{ inventory.no_barang }}</td>
-            <td>{{ inventory.nama_barang }}</td>
-            <td>{{ inventory.no_sku }}</td>
-            <td>{{ inventory.ukuran }}</td>
-            <td>{{ inventory.jumlah_barang }}</td>
-            <td>{{ inventory.Jenis_barang }}</td>
-        </tr>
-        {% endfor %}
+        <!-- Data from json -->
+       
     </table>
 
 </div> <!-- END //.container -->
 
 <br><br><br><br>
 {% endblock content %}
-

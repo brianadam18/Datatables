@@ -74,8 +74,17 @@
 
     <!-- Data Script -->
     <script>
-
+        
         $('#example').DataTable({
+            "ajax" :"/json",
+            "columns":  [
+            { "data": "no_barang" },
+            { "data": "nama_barang" },
+            { "data": "no_sku" },
+            { "data": "ukuran" },
+            { "data": "jumlah_barang" },
+            { "data": "Jenis_barang" }
+            ],
             //DataTables config
             paging: true, // Pagination
             pageLegth: 10, // Data per page
