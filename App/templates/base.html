@@ -20,10 +20,12 @@
     <!-- Static CSS -->
     <link rel="stylesheet" href={% static "css/style.css" %}>
     <!-- Data Tables CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/af-2.4.0/datatables.min.css"/>
-  
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/v/bs5/dt-1.12.1/af-2.4.0/datatables.min.css" />
+
     <title>Management Inventory</title>
 </head>
+
 <body>
     <div class="wrapper">
         <header>
@@ -33,7 +35,14 @@
                         {% block navbar-content %}{% endblock navbar-content %}
                     </a>
                 </div>
-                <!-- Create a input outsite -->
+                <!--  Input Seacrh outsite -->
+                <div class="d-flex" style="margin-right: 25px;">
+                    <div class="input-group input-group-sm">
+                        <input class="form-control" type="search" id="search" placeholder="Search" aria-label="Search"
+                            arial-label="Search">
+                        <a href="{% url 'home' %}" class="btn btn-secondary btn-sm"><i class="fas fa-sync-alt"></i></a>
+                    </div>
+                </div>
             </nav>
         </header>
         <!-- ===== Block content (ROOT) ====== -->
@@ -62,7 +71,7 @@
 
     <!-- Data Script -->
     <script>
-        
+
         $('#example').DataTable({
             //DataTables config
             paging: true, // Pagination
@@ -73,7 +82,11 @@
             bInfo: true, // Info on footer
             bSort: true,// Filter A to Z and Z to A (and numbers)
         })
-
+        //Enable search box Outside
+        var newSearch = $('#example').DataTable();
+        $('#search').keyup(function() {
+            newSearch.search($(this).val()).draw();
+        });
     </script>
 
 </body>
